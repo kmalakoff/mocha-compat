@@ -1,6 +1,6 @@
 BROWSERIFY := "node_modules/.bin/browserify"
 KARMA := "node_modules/.bin/karma"
-MOCHA := "bin/mocha"
+MOCHA := "bin/mocha-compat"
 NYC := "node_modules/.bin/nyc"
 
 ifdef COVERAGE

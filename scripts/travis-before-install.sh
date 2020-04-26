@@ -2,7 +2,7 @@
 
 runSanityTest () {
   # avoids our mocha.opts (and thus devDependencies) in a roundabout way
-  ./bin/mocha --opts /dev/null --reporter spec test/sanity/sanity.spec.js
+  ./bin/mocha-compat --opts /dev/null --reporter spec test/sanity/sanity.spec.js
 }
 
 # install npm@1.4 locally, and try to install production dependencies w/ it.

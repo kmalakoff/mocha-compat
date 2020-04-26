@@ -117,7 +117,7 @@ function invokeMocha (args, fn) {
   var output, mocha, listener;
 
   output = '';
-  args = [path.join('bin', 'mocha')].concat(args);
+  args = [path.join('bin', 'mocha-compat')].concat(args);
   mocha = spawn(process.execPath, args);
 
   listener = function (data) {

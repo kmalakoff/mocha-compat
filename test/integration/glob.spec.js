@@ -84,7 +84,7 @@ var isFlakeyNode = (function () {
 
 function execMochaWith (validate) {
   return function execMocha (glob, assertOn, done) {
-    exec(node + ' "' + path.join('..', '..', '..', '..', 'bin', 'mocha') + '" -R json-stream ' + glob, { cwd: path.join(__dirname, 'fixtures', 'glob') }, function (error, stdout, stderr) {
+    exec(node + ' "' + path.join('..', '..', '..', '..', 'bin', 'mocha-compat') + '" -R json-stream ' + glob, { cwd: path.join(__dirname, 'fixtures', 'glob') }, function (error, stdout, stderr) {
       try {
         validate(error, stderr);
         if (isFlakeyNode && error && (stderr === '')) {

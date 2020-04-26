@@ -8,7 +8,7 @@ describe('Mocha', function () {
   this.timeout(4000);
 
   it('should not output colors to pipe', function (cb) {
-    var command = [path.join('bin', 'mocha'), '--grep', 'missing-test'];
+    var command = [path.join('bin', 'mocha-compat'), '--grep', 'missing-test'];
     childProcess.execFile(process.execPath, command, function (err, stdout, stderr) {
       if (err) return cb(err);
 
