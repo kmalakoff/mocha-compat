@@ -42,18 +42,16 @@ module.exports = glob
 
 var rp = require('fs.realpath')
 var minimatch = require('minimatch')
-var Minimatch = minimatch.Minimatch
 var inherits = require('inherits')
 var EE = require('events').EventEmitter
 var path = require('path')
 var assert = require('assert')
-var isAbsolute = require('path').isAbsolute
+var isAbsolute = require('is-absolute')
 var globSync = require('./sync.js')
 var common = require('./common.js')
 var setopts = common.setopts
 var ownProp = common.ownProp
-var inflight = require('inflight')
-var util = require('util')
+var inflight = require('../inflight/inflight.js')
 var childrenIgnored = common.childrenIgnored
 var isIgnored = common.isIgnored
 

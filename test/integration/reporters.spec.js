@@ -1,7 +1,7 @@
 'use strict';
 
 var assert = require('assert');
-var os = require('os');
+var os = require('os-shim');
 var fs = require('fs');
 var crypto = require('crypto');
 var path = require('path');

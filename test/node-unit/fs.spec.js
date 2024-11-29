@@ -2,7 +2,7 @@
 
 var fs = require('fs');
 var path = require('path');
-var os = require('os');
+var os = require('os-shim');
 var tmpFile = path.join.bind(path, os.tmpdir());
 
 describe('fs.readFile()', function () {

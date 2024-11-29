@@ -3,7 +3,7 @@
 var utils = require('../../lib/utils');
 var fs = require('fs');
 var path = require('path');
-var os = require('os');
+var os = require('os-shim');
 var mkdirp = require('mkdirp');
 var rimraf = require('rimraf');
 

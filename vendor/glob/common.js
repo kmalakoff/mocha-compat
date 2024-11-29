@@ -13,7 +13,7 @@ function ownProp (obj, field) {
 var fs = require("fs")
 var path = require("path")
 var minimatch = require("minimatch")
-var isAbsolute = require("path").isAbsolute
+var isAbsolute = require('is-absolute')
 var Minimatch = minimatch.Minimatch
 
 function alphasort (a, b) {
