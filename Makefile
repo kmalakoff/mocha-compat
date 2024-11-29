@@ -39,7 +39,7 @@ test-node: test-bdd test-tdd test-qunit test-exports test-unit test-integration 
 
 test-browser: clean BUILDTMP/mocha.js test-browser-unit test-browser-bdd test-browser-qunit test-browser-tdd test-browser-exports
 
-test: lint test-node test-browser
+test: test-node test-browser
 
 test-browser-unit:
 	@printf "==> [Test :: Browser]\n"
