@@ -1,6 +1,6 @@
 {
   "name": "mocha-compat",
-  "version": "3.5.5",
+  "version": "3.6.0-0",
   "description": "This is a fork of mocha 3.5.3 to upgrade dependencies to retain support for Node >=0.8 and resolve npm audit issues. Replace mocha-compat wherever you use mocha so they can be used side by side",
   "keywords": [
     "mocha",
