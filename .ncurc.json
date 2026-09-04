@@ -1,7 +1,15 @@
 {
   "upgrade": true,
   "reject": [
-    "commander", "debug", "diff", "escape-string-regexp", "minimatch", "mkdirp", "supports-color",
-    "globals", "nyc", "os-name", "through2"
+    "commander",
+    "debug",
+    "diff",
+    "escape-string-regexp",
+    "minimatch",
+    "mkdirp",
+    "supports-color",
+    "nyc",
+    "os-name",
+    "through2"
   ]
 }
