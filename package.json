@@ -308,7 +308,7 @@
     "lint": "",
     "test": "make test && make clean",
     "prepublishOnly": "node scripts/require-support-branch.js",
-    "preversion": "make test && rm mocha.js && make mocha.js && git add mocha.js",
+    "preversion": "rm mocha.js && make mocha.js && git add mocha.js",
     "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
   "dependencies": {
