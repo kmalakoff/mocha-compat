@@ -15,3 +15,6 @@ coverage/
 BUILDTMP/
 yarn.lock
 package-lock.json
+plans/
+mocha.js.map
+stats.html

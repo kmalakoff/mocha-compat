@@ -1,3 +1,14 @@
+# mocha-compat
+
+This is mocha-compat, a fork of mocha maintained at https://github.com/kmalakoff/mocha-compat. This
+is the 3.x line (based on mocha 3.5.3), supporting Node 0.10 through 26. Install it via the alias
+`"mocha-compat-3": "npm:mocha-compat@^3.6.4"`, and use the bins `mocha-compat-3` / `_mocha-compat-3`.
+The unhyphenated `mocha-compat` / `_mocha-compat` bins still work as transitional aliases for
+consumers already on them. A 10.x line also exists, on branch `support/10.x`, published as
+`"mocha-compat-10": "npm:mocha-compat@^10"` for Node 12.17+.
+
+---
+
 				
 
 # Mocha needs YOU!
