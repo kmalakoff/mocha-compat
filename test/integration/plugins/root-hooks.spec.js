@@ -139,22 +139,25 @@ describe('root hooks', function () {
       describe('should fail due to ambiguous file type', function () {
         const filename =
           '../fixtures/plugins/root-hooks/root-hook-defs-esm-broken.fixture.js';
-        const noDetectModuleRegex = /SyntaxError: Unexpected token/;
-        const detectModuleRegex = /Cannot require\(\) ES Module/;
+        // The fixture is under package.json "type": "commonjs", so it is never treated as
+        // ESM; it fails as a parse SyntaxError, or as `Cannot require() ES Module` when a
+        // require hook (nyc under test-node) routes it through require(esm).
+        const noDetectModuleRegex =
+          /SyntaxError: Unexpected token|Cannot require\(\) ES Module/;
+        const detectModuleRegex =
+          /SyntaxError: Unexpected token|Cannot require\(\) ES Module/;
 
         it('with --no-experimental-detect-module', function () {
-          return expect(
-            invokeMochaAsync(
-              [
-                '--require=' + require.resolve(filename), // as object
-                '--no-experimental-detect-module'
-              ],
-              'pipe'
-            )[1],
-            'when fulfilled',
-            'to contain output',
-            noDetectModuleRegex
-          );
+          return invokeMochaAsync(
+            [
+              '--require=' + require.resolve(filename), // as object
+              '--no-experimental-detect-module'
+            ],
+            'pipe'
+          )[1].then(function (result) {
+            expect(result, 'to contain output', noDetectModuleRegex);
+            expect(result, 'not to contain output', /mjs beforeAll/);
+          });
         });
 
         it('with --experimental-detect-module', function () {
@@ -163,18 +166,16 @@ describe('root hooks', function () {
             process.version >= 'v21.1.0'
               ? detectModuleRegex
               : noDetectModuleRegex;
-          return expect(
-            invokeMochaAsync(
-              [
-                '--require=' + require.resolve(filename), // as object
-                '--experimental-detect-module'
-              ],
-              'pipe'
-            )[1],
-            'when fulfilled',
-            'to contain output',
-            expectedRegex
-          );
+          return invokeMochaAsync(
+            [
+              '--require=' + require.resolve(filename), // as object
+              '--experimental-detect-module'
+            ],
+            'pipe'
+          )[1].then(function (result) {
+            expect(result, 'to contain output', expectedRegex);
+            expect(result, 'not to contain output', /mjs beforeAll/);
+          });
         });
       });
     });

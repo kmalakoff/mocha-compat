@@ -1,8 +1,8 @@
 {
-  "name": "mocha",
+  "name": "mocha-compat",
   "version": "10.8.2",
   "type": "commonjs",
-  "description": "simple, flexible, fun test framework",
+  "description": "Fork of mocha 10.8.2 with serialize-javascript vendored so npm audit is clean on Node 12.17 through 26. Install as an alias next to mocha: \"mocha-compat-10\": \"npm:mocha-compat@^10\"",
   "keywords": [
     "mocha",
     "test",
@@ -22,25 +22,24 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mochajs/mocha.git"
+    "url": "git+https://github.com/kmalakoff/mocha-compat.git"
   },
   "bugs": {
-    "url": "https://github.com/mochajs/mocha/issues/"
+    "url": "https://github.com/kmalakoff/mocha-compat/issues"
   },
-  "discord": "https://discord.gg/KeDn2uXhER",
-  "homepage": "https://mochajs.org/",
+  "homepage": "https://github.com/kmalakoff/mocha-compat#readme",
   "logo": "https://cldup.com/S9uQ-cOLYz.svg",
   "notifyLogo": "https://ibin.co/4QuRuGjXvl36.png",
   "bin": {
-    "mocha": "./bin/mocha.js",
-    "_mocha": "./bin/_mocha"
+    "mocha-compat-10": "bin/mocha.js",
+    "_mocha-compat-10": "bin/_mocha"
   },
   "directories": {
     "lib": "./lib",
     "test": "./test"
   },
   "engines": {
-    "node": ">= 14.0.0"
+    "node": ">= 12.17.0"
   },
   "scripts": {
     "build": "rollup -c ./rollup.config.js",
@@ -57,6 +56,7 @@
     "lint:code": "eslint . \"bin/*\" --max-warnings 0",
     "lint:markdown": "markdownlint \"*.md\" \"docs/**/*.md\" \".github/*.md\" \"lib/**/*.md\" \"test/**/*.md\" \"example/**/*.md\" -i CHANGELOG.md",
     "lint": "run-p lint:*",
+    "prepack": "run-s clean build",
     "prepublishOnly": "run-s clean build",
     "test-browser-run": "cross-env NODE_PATH=. karma start ./karma.conf.js --single-run",
     "test-browser:reporters:bdd": "cross-env MOCHA_TEST=bdd npm run -s test-browser-run",
@@ -97,16 +97,16 @@
     "browser-stdout": "^1.3.1",
     "chokidar": "^3.5.3",
     "debug": "^4.3.5",
-    "diff": "^5.2.0",
+    "diff": "^5.2.2",
     "escape-string-regexp": "^4.0.0",
     "find-up": "^5.0.0",
     "glob": "^8.1.0",
     "he": "^1.2.0",
-    "js-yaml": "^4.1.0",
+    "js-yaml": "^4.3.1",
     "log-symbols": "^4.1.0",
-    "minimatch": "^5.1.6",
+    "minimatch": "^5.1.8",
     "ms": "^2.1.3",
-    "serialize-javascript": "^6.0.2",
+    "randombytes": "^2.1.0",
     "strip-json-comments": "^3.1.1",
     "supports-color": "^8.1.1",
     "workerpool": "^6.5.1",
@@ -173,6 +173,7 @@
   "files": [
     "bin/*mocha*",
     "lib/**/*.{js,html,json}",
+    "vendor",
     "index.js",
     "mocha.css",
     "mocha.js",

@@ -23,7 +23,9 @@ describe('class BufferedWorkerPool', function () {
       deserialize: sinon.stub()
     };
 
-    serializeJavascript = sinon.spy(require('serialize-javascript'));
+    // vendored: buffered-worker-pool requires ../../vendor/serialize-javascript, so the spy and
+    // the rewiremock key must name that path or the stub is silently not injected
+    serializeJavascript = sinon.spy(require('../../vendor/serialize-javascript'));
     BufferedWorkerPool = rewiremock.proxy(
       require.resolve('../../lib/nodejs/buffered-worker-pool'),
       {
@@ -32,7 +34,7 @@ describe('class BufferedWorkerPool', function () {
           cpus: 8
         },
         '../../lib/nodejs/serializer': serializer,
-        'serialize-javascript': serializeJavascript
+        '../../vendor/serialize-javascript': serializeJavascript
       }
     ).BufferedWorkerPool;
 

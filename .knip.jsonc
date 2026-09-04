@@ -10,11 +10,12 @@
     "karma.conf.js"
   ],
   "project": [
-    "{bin,lib,scripts,test}/**/*.{js,ts,mjs,cjs}"
+    "{bin,lib,scripts,test,vendor}/**/*.{js,ts,mjs,cjs}"
   ],
   "ignore": [
     "test/integration/fixtures/esm/type-module/test-that-imports-non-existing-module.fixture.js",
-    "test/integration/fixtures/options/watch/test-with-dependency.fixture.js"
+    "test/integration/fixtures/options/watch/test-with-dependency.fixture.js",
+    "docs/example/**"
   ],
   "ignoreDependencies": [
     "@mocha/docdash",
@@ -25,8 +26,7 @@
     "karma-mocha-reporter",
     "karma-mocha",
     "karma-sauce-launcher",
-    "non-existent-package",
-    "prettier"
+    "non-existent-package"
   ],
   "mocha": {
     "entry": ["test/**/*.{js,ts,mjs,cjs}"]

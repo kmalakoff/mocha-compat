@@ -1,6 +1,6 @@
 'use strict';
 
-const serializeJavascript = require('serialize-javascript');
+const serializeJavascript = require('../../vendor/serialize-javascript');
 const rewiremock = require('rewiremock/node');
 const {SerializableWorkerResult} = require('../../lib/nodejs/serializer');
 const sinon = require('sinon');

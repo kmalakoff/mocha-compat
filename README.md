@@ -1,3 +1,17 @@
+## mocha-compat
+
+This is `mocha-compat`, the 10.x line: a fork of mocha 10.8.2 with `serialize-javascript`
+vendored (carrying the 7.1.1 fixes) so `npm audit --omit=dev` is clean, for Node 12.17
+through 26. Install it as an alias next to `mocha`:
+
+    "mocha-compat-10": "npm:mocha-compat@^10"
+
+Its bins are `mocha-compat-10` and `_mocha-compat-10`. A 3.x line also exists, on the
+`support/3.x` branch, installed as `"mocha-compat-3": "npm:mocha-compat@^3.6.4"` for Node
+0.10 through 26. Repo: <https://github.com/kmalakoff/mocha-compat>.
+
+---
+
 <p align="center">
   <img src="assets/mocha-logo.svg" alt="Mocha test framework logo"/>
 </p>
