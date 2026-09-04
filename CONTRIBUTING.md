@@ -98,6 +98,13 @@ install the candidate at its latest major and require it on Node 0.10.
     node bin/mocha.js --timeout 10000 --slow 3750 test/integration/parallel.spec.js
     node bin/mocha.js --timeout 10000 --slow 3750 test/integration/options/parallel.spec.js
     npm audit --omit=dev             # must be 0 — production is what consumers inherit
+    npm ls --omit=dev --all          # then `npm view <pkg> deprecated` across it: a deprecated
+                                     # package in the production tree is a vendoring candidate
+
+Whatever one line vendors, the other line evaluates. 3.x vendors glob and inflight; 10.8.3 does the
+same, for the same reason — glob 8 is unsupported and pulls inflight, which leaks memory, and glob 9
+dropped the sync API `lib/cli/lookup-files.js` needs. Vendored copies keep upstream's source
+byte-identical apart from repointing a require, and eslint and knip skip `vendor/`.
 
 The parallel specs are mandatory. `vendor/serialize-javascript` is reachable only through
 parallel-mode worker IPC (`lib/nodejs/buffered-worker-pool.js`), so a green suite that never runs
