@@ -6,8 +6,7 @@ itself. This file covers what is specific to the fork: the branch layout and how
 ## Branch layout
 
 Two maintenance lines, published to the same npm package under different majors, each on its own
-explicit support branch. Neither line is "master's line" — with two of them, picking one to live on
-master would be arbitrary, so both are named:
+explicit support branch. Both are named; `master` is only a mirror (see below):
 
     support/3.x     mocha 3.x base       Node 0.10 -> 26    no ESM test files, no parallel mode
     support/10.x    mocha 10.8.2 base    Node 12.17 -> 26   ESM + parallel
@@ -31,6 +30,19 @@ created to fix. 3.6.4 added the `-3` names and keeps `mocha-compat` / `_mocha-co
 existing `^3` consumers keep working. Dropping the aliases is a breaking change reserved for a later,
 announced release; until then nothing new should reference them.
 
+## master
+
+`master` is a read-only mirror of `support/3.x`, the line that owns npm `latest`, so GitHub's default
+view shows a real README and this file. It is fast-forwarded after each 3.x release and never
+receives commits, branches, or publishes of its own. Nothing is decided by master's state: the
+release sources are the `support/*` branches, each release is the tag `v<version>` on its branch,
+and `prepublishOnly` on both lines runs `scripts/require-support-branch.js`, which refuses to publish
+from any other branch.
+
+Agents: before editing or publishing, check `git rev-parse --abbrev-ref HEAD` starts with
+`support/`. If it is `master`, check out the support branch instead; after a 3.x release,
+`git branch -f master support/3.x && git push origin master`.
+
 ## Versioning
 
 Start a line at upstream mocha's last version for that major, then increment normally. The 3.x line
@@ -47,8 +59,13 @@ The 10.x line therefore publishes first as 10.8.2.
 the bare install; every consumer pins a major through an alias. `npm publish --tag <name>` publishes
 without moving `latest`, and `npm dist-tag add mocha-compat@<version> latest` reverses it at any time.
 
-Publish 10.x with `npm publish --tag support-10` so `latest` stays on 3.x: published tsds-mocha
-1.18.6–1.21.3 depend on `mocha-compat@*`, and `*` resolves to `latest`.
+Every line carries the dist-tag `support-<major>`, matching its branch name: `support-3` and
+`support-10`. `latest` stays on 3.x, because published tsds-mocha 1.18.6–1.21.3 depend on
+`mocha-compat@*` and `*` resolves to `latest`.
+
+    support/3.x     npm publish                          # latest moves here; then
+                    npm dist-tag add mocha-compat@<version> support-3
+    support/10.x    npm publish --tag support-10
 
 ## Releasing support/3.x
 
@@ -77,6 +94,13 @@ install the candidate at its latest major and require it on Node 0.10.
     node bin/mocha.js --timeout 10000 --slow 3750 test/integration/parallel.spec.js
     node bin/mocha.js --timeout 10000 --slow 3750 test/integration/options/parallel.spec.js
     npm audit --omit=dev             # must be 0 — production is what consumers inherit
+    npm ls --omit=dev --all          # then `npm view <pkg> deprecated` across it: a deprecated
+                                     # package in the production tree is a vendoring candidate
+
+Whatever one line vendors, the other line evaluates. 3.x vendors glob and inflight; 10.8.3 does the
+same, for the same reason — glob 8 is unsupported and pulls inflight, which leaks memory, and glob 9
+dropped the sync API `lib/cli/lookup-files.js` needs. Vendored copies keep upstream's source
+byte-identical apart from repointing a require, and eslint and knip skip `vendor/`.
 
 The parallel specs are mandatory. `vendor/serialize-javascript` is reachable only through
 parallel-mode worker IPC (`lib/nodejs/buffered-worker-pool.js`), so a green suite that never runs

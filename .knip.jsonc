@@ -6,6 +6,8 @@
     "browser-entry.js!",
     "index.js!",
     "lib/cli/index.js!",
+    // spawned by workerpool via require.resolve, so nothing imports it
+    "lib/nodejs/worker.js!",
     ".eleventy.js",
     "karma.conf.js"
   ],

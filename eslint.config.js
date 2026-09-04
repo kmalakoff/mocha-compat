@@ -151,7 +151,9 @@ module.exports = [
       'out/**',
       'test/integration/fixtures/**',
       '.karma/**',
-      'mocha.js'
+      'mocha.js',
+      // upstream sources kept byte-identical; restyling them would defeat re-vendoring
+      'vendor/**'
     ],
   }
 ];
