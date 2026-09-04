@@ -63,9 +63,13 @@ Every line carries the dist-tag `support-<major>`, matching its branch name: `su
 `support-10`. `latest` stays on 3.x, because published tsds-mocha 1.18.6–1.21.3 depend on
 `mocha-compat@*` and `*` resolves to `latest`.
 
-    support/3.x     npm publish                          # latest moves here; then
-                    npm dist-tag add mocha-compat@<version> support-3
+    support/3.x     npm publish --tag support-3
+                    npm dist-tag add mocha-compat@<version> latest
     support/10.x    npm publish --tag support-10
+
+Both lines name their tag. A bare `npm publish` on 3.x is refused outright once a 10.x version
+exists, because npm will not implicitly move `latest` backwards to a lower version. So 3.x publishes
+under `support-3` and then moves `latest` itself.
 
 ## Releasing support/3.x
 
