@@ -87,10 +87,7 @@
     "test-node:unit": "npm run -s test-node-run -- \"test/unit/*.spec.js\" \"test/node-unit/**/*.spec.js\"",
     "test-node": "run-s test-coverage-clean test-node:* test-coverage-generate",
     "test-smoke": "node ./bin/mocha --no-config test/smoke/smoke.spec.js",
-    "test": "run-s lint test-node test-browser",
-    "version:linkify-changelog": "node scripts/linkify-changelog.mjs",
-    "version:update-authors": "node scripts/update-authors.js",
-    "version": "run-p version:* && git add -A ./AUTHORS ./CHANGELOG.md"
+    "test": "run-s lint test-node test-browser"
   },
   "dependencies": {
     "ansi-colors": "^4.1.3",
@@ -154,9 +151,6 @@
     "nyc": "^15.1.0",
     "pidtree": "^0.5.0",
     "prettier": "^2.4.1",
-    "remark": "^14.0.2",
-    "remark-github": "^11.2.2",
-    "remark-inline-links": "^6.0.1",
     "rewiremock": "^3.14.3",
     "rimraf": "^3.0.2",
     "rollup": "^2.70.1",
