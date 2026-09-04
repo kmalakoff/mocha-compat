@@ -52,6 +52,18 @@ from it is expected and has never caused confusion.
 
 The 10.x line therefore publishes first as 10.8.2.
 
+## Tags
+
+Every published version has a tag on the commit that built it, because `npm version patch` creates
+the commit and the tag together. One exception, and it cannot be fixed honestly:
+
+**3.6.2 has no commit.** Its published tarball is byte-identical to `v3.6.1` in every shipped file
+except `package.json`, which differs only in the version and in adding `wrappy: ^1.0.2`. v3.6.1 had
+vendored inflight, which requires wrappy, without declaring it; 3.6.2 was that one-line hotfix,
+published from a working tree that was never committed. The dependency is committed from 3.6.3
+onward, so nothing is lost, and no commit in this repository corresponds to 3.6.2. Tagging any
+nearby commit would attach the name to content that was not published under it.
+
 ## dist-tags
 
 `npm publish` moves `latest` to the highest version published, so publishing 10.8.2 makes a bare
